@@ -6,7 +6,7 @@ exports.init = function (napp, app) {
     var appSecret = opts.appSecret;
     var adapter = opts.adapter || "jpush";
 
-    var pushAdapter = require('./' + adapter)(appKey, appSecret, napp);
+    var pushAdapter = require('./adapters/' + adapter)(appKey, appSecret, napp);
     napp.pusher = pushAdapter;
 };
 

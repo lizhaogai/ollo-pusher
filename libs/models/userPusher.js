@@ -1,11 +1,11 @@
 "use strict";
 
 var _ = require('lodash');
-module.exports = function (UserPush) {
+module.exports = function (Userpusher) {
 
-    UserPush.validatesPresenceOf('ownerId', 'platform', 'type', 'value');
+    Userpusher.validatesPresenceOf('ownerId', 'platform', 'type', 'value');
 
-    UserPush.updatePushSetting = function (ownerId, data, cb) {
+    Userpusher.updatePushSetting = function (ownerId, data, cb) {
         if (!data.platform || !data.type || !data.value) {
             return cb({
                 "name": "ValidationError",
@@ -15,18 +15,18 @@ module.exports = function (UserPush) {
             });
         }
 
-        UserPush.findOne({where: {ownerId: ownerId, paltform: data.platform, type: data.type}}, function (err, userPush) {
+        Userpusher.findOne({where: {ownerId: ownerId, platform: data.platform, type: data.type}}, function (err, userPush) {
             if (err) return cb(err);
             data.ownerId = ownerId;
             if (!userPush) {
-                UserPush.create(data, cb);
+                Userpusher.create(data, cb);
             } else {
                 userPush.updateAttributes(data, cb);
             }
         });
     };
 
-    UserPush.findPushSettings = function (ownerId, data, cb) {
+    Userpusher.findPushSettings = function (ownerId, data, cb) {
         var where = {ownerId: ownerId};
         if (data) {
             if (data.platform) {
@@ -36,13 +36,13 @@ module.exports = function (UserPush) {
                 where.type = data.type;
             }
         }
-        UserPush.all({where: where}, function (err, userPushs) {
+        Userpusher.all({where: where}, function (err, userPushs) {
             if (err) return cb(err);
             return cb(null, userPushs);
         });
     };
 
-    UserPush.expose('updatePushSetting', {
+    Userpusher.expose('updatePushSetting', {
         accepts: [
             {arg: 'ownerId', type: 'string', source: function (ctx) {
                 return ctx.req.accessToken && ctx.req.accessToken.userId;
@@ -52,10 +52,10 @@ module.exports = function (UserPush) {
         returns: {
             arg: 'result', type: 'object', root: true
         },
-        http: {verb: 'update', path: '/'}
+        http: {verb: 'put', path: '/'}
     });
 
-    UserPush.expose('findPushSettings', {
+    Userpusher.expose('findPushSettings', {
         accepts: [
             {arg: 'ownerId', type: 'string', source: function (ctx) {
                 return ctx.req.accessToken && ctx.req.accessToken.userId;

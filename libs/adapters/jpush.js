@@ -16,8 +16,8 @@ function Client(client, napp) {
 
 Client.prototype.notify = function (ownerId, message, cb) {
     var self = this;
-    var UserPush = self.napp.model('UserPush');
-    UserPush.all({where: {ownerId: ownerId}}, function (err, ups) {
+    var Userpusher = self.napp.model('Userpusher');
+    Userpusher.all({where: {ownerId: ownerId}}, function (err, ups) {
         if (err) {
             return cb(err);
         }
