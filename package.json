@@ -1,0 +1,20 @@
+{
+  "name": "ollo-pusher",
+  "version": "0.0.2",
+  "description": "Ollo Pusher",
+  "main": "./libs/index.js",
+  "devDependencies": {
+    "nino": "git+ssh://git@bitbucket.org:ollomind/nino.git"
+  },
+  "scripts": {
+    "test": "mocha test/*.test.js"
+  },
+  "author": "Li Zhaogai",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "jpush-sdk": "^3.1.0",
+    "underscore": "^1.7.0"
+  }
+}
