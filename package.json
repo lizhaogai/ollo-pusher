@@ -10,6 +10,7 @@
         "chai": "^1.10.0",
         "sira": "git://github.com/taoyuan/sira",
         "sira-express-veriuser": "git://github.com/taoyuan/sira-express-veriuser",
+        "jugglingdb-redis-hq": "0.0.12",
         "log4js": "^0.6.21",
         "supertest": "^0.13.0",
         "express": "latest",
