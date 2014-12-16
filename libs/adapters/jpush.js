@@ -34,22 +34,47 @@ Client.prototype.notify = function (ownerId, message, cb) {
             }
         });
 
-        self.client.push().setPlatform(jpush.ALL)
-            .setAudience(jpush.registration_id.call(jpush, registrationIds), jpush.alias.call(jpush, alias))
-            .setNotification(message, jpush.ios('ios alert', 'happy', 5))
-            .send(function (err) {
-                if (err) {
-                    return  cb(err)
-                }
-                return cb();
-            });
+        if (registrationIds.length > 0 && alias.length > 0) {
+            self.client.push().setPlatform(jpush.ALL)
+                .setAudience(jpush.registration_id.call(jpush, registrationIds), jpush.alias.call(jpush, alias))
+                .setNotification(message, jpush.ios(message, 'happy', 5))
+                .send(function (err) {
+                    if (err) {
+                        return  cb(err)
+                    }
+                    return cb();
+                });
+        } else if (registrationIds.length > 0) {
+            self.client.push().setPlatform(jpush.ALL)
+                .setAudience(jpush.registration_id.call(jpush, registrationIds))
+                .setNotification(message, jpush.ios(message, 'happy', 5))
+                .send(function (err) {
+                    if (err) {
+                        return  cb(err)
+                    }
+                    return cb();
+                });
+        } else if (alias.length > 0) {
+            self.client.push().setPlatform(jpush.ALL)
+                .setAudience(jpush.alias.call(jpush, alias))
+                .setNotification(message, jpush.ios(message, 'happy', 5))
+                .send(function (err) {
+                    if (err) {
+                        return  cb(err)
+                    }
+                    return cb();
+                });
+        } else {
+            return cb();
+        }
     });
 };
 
 Client.prototype.broadcast = function (message, cb) {
+    var self = this;
     self.client.push().setPlatform(jpush.ALL)
         .setAudience(jpush.ALL)
-        .setNotification(message, jpush.ios('ios alert', 'happy', 5))
+        .setNotification(message, jpush.ios(message, 'happy', 5))
         .send(function (err) {
             if (err) {
                 return  cb(err)

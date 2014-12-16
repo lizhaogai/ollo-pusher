@@ -19,7 +19,9 @@ module.exports = function (Userpusher) {
             if (err) return cb(err);
             data.ownerId = ownerId;
             if (!userPush) {
-                Userpusher.create(data, cb);
+                Userpusher.create(data, function(err,r){
+                    cb();
+                });
             } else {
                 userPush.updateAttributes(data, cb);
             }

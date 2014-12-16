@@ -5,7 +5,15 @@
     "main": "./libs/index.js",
     "devDependencies": {
         "nino": "git+ssh://git@bitbucket.org:ollomind/nino.git",
-        "sira-core": "taoyuan/sira-core"
+        "sira-core": "taoyuan/sira-core",
+        "logs": "0.0.7",
+        "chai": "^1.10.0",
+        "sira": "git://github.com/taoyuan/sira",
+        "sira-express-veriuser": "git://github.com/taoyuan/sira-express-veriuser",
+        "log4js": "^0.6.21",
+        "supertest": "^0.13.0",
+        "express": "latest",
+        "musher": "taoyuan/musher.js"
     },
     "scripts": {
         "test": "mocha test/*.test.js"
@@ -17,6 +25,7 @@
     "dependencies": {
         "jpush-sdk": "^3.1.0",
         "underscore": "^1.7.0",
-        "lodash": "^2.4.1"
+        "lodash": "^2.4.1",
+        "async": "^0.9.0"
     }
 }
